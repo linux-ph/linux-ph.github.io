@@ -1,0 +1,21 @@
+FROM docker.io/library/alpine:latest
+
+ARG RUBY="ruby-3.0.1"
+ARG RUBY_URL="https://cache.ruby-lang.org/pub/ruby/3.0/${RUBY}.tar.gz"
+
+RUN apk --update-cache upgrade
+RUN apk add build-base tar zlib-dev openssl-dev
+ADD [ "${RUBY_URL}", "/tmp/" ]
+
+RUN tar xf /tmp/${RUBY}.tar.gz -C /tmp
+WORKDIR /tmp/${RUBY}
+RUN ./configure
+RUN make install
+
+RUN gem update
+RUN gem install bundler webrick jekyll jekyll-feed jekyll-seo-tag minima
+WORKDIR /root
+RUN rm -r /tmp/${RUBY} /tmp/${RUBY}.tar.gz /var/cache/apk/* /usr/local/lib/ruby/gems/3.0.0/cache
+
+ENTRYPOINT [ "/usr/bin/tar" ]
+CMD [ "czP", "/usr/local" ]
