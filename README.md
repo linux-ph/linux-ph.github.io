@@ -15,7 +15,7 @@ Assuming that the repository has been cloned into `~/linux-ph`, run the Jekyll c
 `podman run --rm --publish 4000:4000/tcp --publish 35729:35729/tcp --volume ~/linux-ph:/var/www ghcr.io/linux-ph/jekyll:latest` and
 go to <http://localhost:4000/>.
 
-The container runs `jekyll server --host 0.0.0.0 --livereload` by default. You can override this by supplying different parameters.
+The container runs `jekyll server --host 0.0.0.0 --livereload` by default. You can override this by supplying different arguments.
 To build the site manually for example, you can execute
 `podman run --rm --volume ~/linux-ph:/var/www ghcr.io/linux-ph/jekyll:latest build`
 
@@ -26,6 +26,7 @@ Building the Jekyll container
 -----------------------------
 
 ```sh
+$ cd ~/linux-ph
 $ podman build --file Containerfile.build --tag localhost/jekyll-build:latest ${PWD}
 $ podman run --rm localhost/jekyll-build:latest > ruby-3.0.1-jekyll.tar.gz
 $ podman build --tag ghcr.io/linux-ph/jekyll:latest ${PWD}
