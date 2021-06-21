@@ -22,12 +22,12 @@ To build the site manually for example, you can execute
 If you are using a system with SELinux enabled, mount the host directory with `:Z` e.g. `--volume ~/linux-ph:/var/www:Z` to
 relabel it. Alternatively, you can disable label confinement with `--security-opt "label=disable"`.
 
-Building the Jekyll container
------------------------------
+Building the Jekyll image
+-------------------------
 
 ```sh
 $ cd ~/linux-ph
 $ podman build --file Containerfile.build --tag localhost/jekyll-build:latest ${PWD}
 $ podman run --rm localhost/jekyll-build:latest > ruby-3.0.1-jekyll.tar.gz
-$ podman build --tag ghcr.io/linux-ph/jekyll:latest ${PWD}
+$ podman build --file Containerfile --tag ghcr.io/linux-ph/jekyll:latest ${PWD}
 ```
