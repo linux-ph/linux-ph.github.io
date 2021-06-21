@@ -1,0 +1,7 @@
+*.sw[po]
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
+ruby-*-jekyll.tar.gz

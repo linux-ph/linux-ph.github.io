@@ -1,0 +1,12 @@
+FROM docker.io/library/ruby:alpine
+
+RUN apk --update-cache upgrade
+RUN apk add build-base tar openssl-dev
+
+RUN gem update
+RUN gem install webrick jekyll jekyll-feed jekyll-seo-tag minima
+
+WORKDIR /
+RUN rm -r /var/cache/apk/* /usr/local/lib/ruby/gems/3.0.0/cache
+
+CMD [ "/usr/bin/tar", "czP", "/usr/local" ]
